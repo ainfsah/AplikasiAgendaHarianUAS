@@ -2,7 +2,7 @@
 **Siti Aisyah Nor Fitriani - 2210010043 - UTS**
 
 ## Deskripsi Aplikasi
-Aplikasi **Agenda Harian UAS** adalah aplikasi desktop berbasis Java Swing yang membantu pengguna mengelola agenda harian mereka. Aplikasi ini mendukung fitur seperti login pengguna, pengisian agenda berdasarkan hari, penyimpanan ke database, serta ekspor dan impor data menggunakan file CSV.
+Aplikasi **Agenda Harian** adalah aplikasi desktop berbasis Java Swing yang membantu pengguna mengelola agenda harian mereka. Aplikasi ini mendukung fitur seperti login pengguna, pengisian agenda berdasarkan hari, penyimpanan ke database, serta ekspor dan impor data menggunakan file CSV.
 
 ---
 
