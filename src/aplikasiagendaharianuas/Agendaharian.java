@@ -4,7 +4,9 @@
  */
 package aplikasiagendaharianuas;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.PrintWriter;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -64,12 +66,16 @@ public class Agendaharian extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnSimpanfile = new javax.swing.JButton();
-        btnMuatData = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
         txtCari = new javax.swing.JTextField();
         btnHapus = new javax.swing.JButton();
         btnUbah = new javax.swing.JButton();
         btnSimpanDatabase = new javax.swing.JButton();
+        btnCari = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        btnMuatData = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -182,7 +188,7 @@ public class Agendaharian extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnMasukDaftar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(204, 255, 204));
@@ -209,15 +215,6 @@ public class Agendaharian extends javax.swing.JFrame {
             }
         });
 
-        btnMuatData.setText("Muat Data");
-        btnMuatData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMuatDataActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setText("Cari Agenda :");
-
         btnHapus.setText("Hapus");
         btnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,6 +223,11 @@ public class Agendaharian extends javax.swing.JFrame {
         });
 
         btnUbah.setText("Ubah");
+        btnUbah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUbahActionPerformed(evt);
+            }
+        });
 
         btnSimpanDatabase.setText("simpan ke database");
         btnSimpanDatabase.addActionListener(new java.awt.event.ActionListener() {
@@ -234,33 +236,67 @@ public class Agendaharian extends javax.swing.JFrame {
             }
         });
 
+        btnCari.setText("CARI");
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("import");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        btnMuatData.setText("Muat data");
+        btnMuatData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMuatDataActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("reset");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(btnUbah)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnHapus))
+                .addContainerGap(10, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel6)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGap(6, 6, 6)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnSimpanDatabase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                                .addComponent(btnSimpanfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(btnMuatData, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 11, Short.MAX_VALUE))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(btnMuatData, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnSimpanDatabase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                                        .addComponent(btnSimpanfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(btnCari)))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCari)))
-                .addContainerGap())
+                        .addComponent(btnUbah)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnHapus)))
+                .addContainerGap(7, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,46 +306,123 @@ public class Agendaharian extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCari))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSimpanDatabase)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSimpanDatabase)
+                    .addComponent(btnMuatData))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSimpanfile)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnMuatData)
                 .addGap(12, 12, 12)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHapus)
                     .addComponent(btnUbah))
-                .addGap(20, 20, 20))
+                .addGap(69, 69, 69)
+                .addComponent(jButton3)
+                .addContainerGap())
         );
+
+        jButton2.setFont(new java.awt.Font("Segoe UI Semibold", 3, 24)); // NOI18N
+        jButton2.setText("KELUAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
+        jLabel7.setText("HALOO, SILAHKAN ISI AGENDA ANDA HARI INI...");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(29, 29, 29)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(167, 167, 167)
+                        .addComponent(jLabel7))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(298, 298, 298)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void muatDataKeTabel() {
+    // Ambil model JTable
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    
+    // Bersihkan data lama dari JTable
+    model.setRowCount(0);
+    
+    try (Connection connection = koneksi.getConnection()) {
+        // Query untuk mengambil semua data dari tabel
+        String query = "SELECT * FROM agenda";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        // Iterasi melalui hasil query dan tambahkan ke JTable
+        while (resultSet.next()) {
+            Object[] row = {
+                resultSet.getString("tanggal"), // Kolom tanggal
+                resultSet.getString("pukul"),   // Kolom pukul
+                resultSet.getString("senin"),   // Kolom senin
+                resultSet.getString("selasa"),  // Kolom selasa
+                resultSet.getString("rabu"),    // Kolom rabu
+                resultSet.getString("kamis"),   // Kolom kamis
+                resultSet.getString("jumat"),   // Kolom jumat
+                resultSet.getString("sabtu"),   // Kolom sabtu
+                resultSet.getString("minggu")   // Kolom minggu
+            };
+            model.addRow(row); // Tambahkan baris ke JTable
+        }
+
+        JOptionPane.showMessageDialog(this, "Data berhasil dimuat!");
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Gagal memuat data: " + e.getMessage());
+    }
+}
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {                                     
+    int selectedRow = jTable1.getSelectedRow();
+    if (selectedRow != -1) {
+        // Ambil model dari JTable
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        // Isi data dari baris yang dipilih ke input field
+        cmbHari.setSelectedItem(model.getValueAt(selectedRow, 2)); // Sesuaikan kolom
+        jDateChooser1.setDate(java.sql.Date.valueOf(model.getValueAt(selectedRow, 0).toString())); // Format tanggal
+        txtJam.setText(model.getValueAt(selectedRow, 1).toString());
+        jTextArea1.setText(model.getValueAt(selectedRow, 3) != null ? model.getValueAt(selectedRow, 3).toString() : "");
+    }
+ }
+    
     private void saveTableToCSV() {
     System.out.println("Memulai metode saveTableToCSV"); // Debug awal
     
@@ -530,14 +643,24 @@ private int getHariKolom(String hari) {
 
     }//GEN-LAST:event_btnSimpanDatabaseActionPerformed
 
-    private void btnMuatDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMuatDataActionPerformed
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+        String keyword = txtCari.getText().trim(); // Ambil kata kunci dari JTextField
+    if (keyword.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Masukkan kata kunci untuk pencarian.");
+        return;
+    }
 
     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
     model.setRowCount(0); // Hapus data lama dari JTable
 
     try (Connection connection = koneksi.getConnection()) {
-        String query = "SELECT * FROM agenda";
+        String query = "SELECT * FROM agenda WHERE tanggal LIKE ? OR senin LIKE ? OR selasa LIKE ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
+        String searchPattern = "%" + keyword + "%";
+        preparedStatement.setString(1, searchPattern);
+        preparedStatement.setString(2, searchPattern);
+        preparedStatement.setString(3, searchPattern);
+
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
@@ -555,10 +678,150 @@ private int getHariKolom(String hari) {
         }
     } catch (Exception e) {
         e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Gagal memuat data: " + e.getMessage());
+        JOptionPane.showMessageDialog(this, "Gagal mencari data: " + e.getMessage());
+    }
+    }//GEN-LAST:event_btnCariActionPerformed
+
+    private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
+     // Mendapatkan baris yang dipilih dari JTable
+    int selectedRow = jTable1.getSelectedRow();
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Pilih baris yang ingin diubah.");
+        return;
     }
 
+    // Validasi input dari form
+    String tanggal = jDateChooser1.getDate() != null ? 
+        new SimpleDateFormat("dd-MM-yyyy").format(jDateChooser1.getDate()) : null;
+    String pukul = txtJam.getText();
+    String namaAgenda = jTextArea1.getText();
+    String hari = cmbHari.getSelectedItem().toString();
+
+    if (tanggal == null || pukul.isEmpty() || namaAgenda.isEmpty() || hari.equals("Pilih Hari")) {
+        JOptionPane.showMessageDialog(this, "Lengkapi semua input sebelum mengubah data.");
+        return;
+    }
+
+    // Mendapatkan model dari JTable
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+    // Update data di JTable
+    model.setValueAt(tanggal, selectedRow, 0); // Update tanggal
+    model.setValueAt(pukul, selectedRow, 1);  // Update pukul
+    int hariIndex = getHariKolom(hari); // Dapatkan indeks kolom berdasarkan hari
+    if (hariIndex != -1) {
+        model.setValueAt(namaAgenda, selectedRow, hariIndex); // Update agenda sesuai hari
+    }
+
+    // Bersihkan input setelah perubahan
+    jDateChooser1.setDate(null);
+    txtJam.setText("");
+    jTextArea1.setText("");
+    cmbHari.setSelectedIndex(0);
+
+    JOptionPane.showMessageDialog(this, "Data di tabel berhasil diperbarui. Ingat untuk menyimpannya ke database jika diperlukan.");
+
+
+    }//GEN-LAST:event_btnUbahActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Pilih file CSV untuk diimpor");
+    fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("CSV Files", "csv"));
+
+    int result = fileChooser.showOpenDialog(this); // 'this' mengacu pada JFrame
+    if (result == JFileChooser.APPROVE_OPTION) {
+    File csvFile = fileChooser.getSelectedFile(); // File yang dipilih oleh pengguna
+    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        // Lanjutkan pembacaan file CSV
+        String line;
+        boolean isHeader = true;
+
+        String sql = "INSERT INTO agenda (tanggal, pukul, senin, selasa, rabu, kamis, jumat, sabtu, minggu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection connection = koneksi.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            while ((line = br.readLine()) != null) {
+                if (isHeader) {
+                    isHeader = false; // Lewati header
+                    continue;
+                }
+
+                String[] values = line.split(","); // Asumsikan nilai dipisahkan koma
+                if (values.length != 9) continue; // Lewati baris jika format salah
+
+                // Format tanggal
+                SimpleDateFormat csvDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String formattedDate = dbDateFormat.format(csvDateFormat.parse(values[0]));
+
+                // Set parameter untuk query
+                preparedStatement.setString(1, formattedDate); // Tanggal
+                preparedStatement.setString(2, values[1]); // Pukul
+                preparedStatement.setString(3, values[2]); // Senin
+                preparedStatement.setString(4, values[3]); // Selasa
+                preparedStatement.setString(5, values[4]); // Rabu
+                preparedStatement.setString(6, values[5]); // Kamis
+                preparedStatement.setString(7, values[6]); // Jumat
+                preparedStatement.setString(8, values[7]); // Sabtu
+                preparedStatement.setString(9, values[8]); // Minggu
+
+                preparedStatement.addBatch();
+            }
+
+            preparedStatement.executeBatch(); // Eksekusi batch untuk menyimpan data
+            JOptionPane.showMessageDialog(this, "Impor CSV berhasil!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Gagal mengimpor CSV: " + e.getMessage());
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Gagal membaca file CSV: " + e.getMessage());
+    }
+} else {
+    JOptionPane.showMessageDialog(this, "Operasi dibatalkan.");
+}
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnMuatDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMuatDataActionPerformed
+       muatDataKeTabel();
     }//GEN-LAST:event_btnMuatDataActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int response = JOptionPane.showConfirmDialog(this, "Yakin lah pian handak keluar?", "Konfirmasi Keluar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (response == JOptionPane.YES_OPTION) {
+        System.exit(0); // Keluar dari aplikasi
+    }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+                                       
+    // Konfirmasi reset tabel
+    int confirm = JOptionPane.showConfirmDialog(this, 
+        "Apakah Anda yakin ingin menghapus semua data dari tabel?", 
+        "Konfirmasi Reset", JOptionPane.YES_NO_OPTION);
+
+    if (confirm == JOptionPane.YES_OPTION) {
+        // Mendapatkan model dari JTable
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        
+        // Hapus semua baris dari model
+        model.setRowCount(0);
+
+        // Bersihkan input pada form
+        jDateChooser1.setDate(null);
+        txtJam.setText("");
+        jTextArea1.setText("");
+        cmbHari.setSelectedIndex(0);
+
+        // Tampilkan pesan berhasil
+        JOptionPane.showMessageDialog(this, "Tabel berhasil di-reset. Anda dapat mengisi ulang data.");
+    }
+
+
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -596,6 +859,7 @@ private int getHariKolom(String hari) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCari;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnMasukDaftar;
     private javax.swing.JButton btnMuatData;
@@ -603,6 +867,9 @@ private int getHariKolom(String hari) {
     private javax.swing.JButton btnSimpanfile;
     private javax.swing.JButton btnUbah;
     private javax.swing.JComboBox<String> cmbHari;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
