@@ -120,7 +120,7 @@ Aplikasi **Agenda Harian** adalah aplikasi desktop berbasis Java Swing yang memb
 
 ## Pembuat Aplikasi
 **Nama:** Siti Aisyah Nor Fitriani  
-**NIM:** 2210010043  
+**NPM:** 2210010043  
 **UTS** 
 
 ---
