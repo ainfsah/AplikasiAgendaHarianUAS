@@ -4,6 +4,16 @@
  */
 package aplikasiagendaharianuas;
 
+import java.io.File;
+import java.io.PrintWriter;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.sql.ResultSet;
+
 /**
  *
  * @author ASUS
@@ -16,11 +26,14 @@ public class Agendaharian extends javax.swing.JFrame {
     public Agendaharian() {
         initComponents();
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-        new Object[][]{},
+           new Object[][]{},
         new String[]{
-        "Hari", "Tanggal", "Pukul", "Nama Agenda"
+        "Tanggal", "Pukul", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"
     }
 ));
+        cmbHari.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {
+        "Pilih Hari", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"
+}));
     }
 
     /**
@@ -40,22 +53,23 @@ public class Agendaharian extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtJam = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtHari = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         btnMasukDaftar = new javax.swing.JButton();
+        cmbHari = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        btnSimpan = new javax.swing.JButton();
-        btnBuka = new javax.swing.JButton();
+        btnSimpanfile = new javax.swing.JButton();
+        btnMuatData = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         txtCari = new javax.swing.JTextField();
         btnHapus = new javax.swing.JButton();
         btnUbah = new javax.swing.JButton();
+        btnSimpanDatabase = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,6 +128,8 @@ public class Agendaharian extends javax.swing.JFrame {
             }
         });
 
+        cmbHari.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -124,28 +140,25 @@ public class Agendaharian extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbHari, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(6, 6, 6))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
                                 .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtJam)))
-                        .addContainerGap())
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtHari)))
-                        .addGap(6, 6, 6))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnMasukDaftar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(txtJam))
+                            .addComponent(btnMasukDaftar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
@@ -156,7 +169,7 @@ public class Agendaharian extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtHari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbHari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
@@ -189,14 +202,19 @@ public class Agendaharian extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable1);
 
-        btnSimpan.setText("Simpan");
-        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
+        btnSimpanfile.setText("simpan ke file");
+        btnSimpanfile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSimpanActionPerformed(evt);
+                btnSimpanfileActionPerformed(evt);
             }
         });
 
-        btnBuka.setText("Buka");
+        btnMuatData.setText("Muat Data");
+        btnMuatData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMuatDataActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Cari Agenda :");
 
@@ -209,6 +227,13 @@ public class Agendaharian extends javax.swing.JFrame {
 
         btnUbah.setText("Ubah");
 
+        btnSimpanDatabase.setText("simpan ke database");
+        btnSimpanDatabase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimpanDatabaseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -217,44 +242,47 @@ public class Agendaharian extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(12, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnUbah)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnHapus))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCari)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnBuka)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSimpan)))
-                        .addGap(29, 29, 29))))
+                                .addComponent(btnHapus))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnSimpanDatabase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                                .addComponent(btnSimpanfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnMuatData, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 11, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCari)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSimpan)
-                    .addComponent(btnBuka)
                     .addComponent(jLabel7)
                     .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSimpanDatabase)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSimpanfile)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnMuatData)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHapus)
                     .addComponent(btnUbah))
-                .addGap(0, 175, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -265,8 +293,8 @@ public class Agendaharian extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,30 +303,114 @@ public class Agendaharian extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void saveTableToCSV() {
+    System.out.println("Memulai metode saveTableToCSV"); // Debug awal
+    
+    // Membuka dialog untuk memilih lokasi penyimpanan file CSV
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Pilih lokasi untuk menyimpan file CSV");
+    fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("CSV Files", "csv"));
+
+    int userSelection = fileChooser.showSaveDialog(null); // Ganti 'this' dengan 'null' agar dialog muncul
+    System.out.println("Dialog file chooser muncul");
+
+    if (userSelection == JFileChooser.APPROVE_OPTION) {
+        File fileToSave = fileChooser.getSelectedFile();
+        System.out.println("User memilih file: " + fileToSave.getAbsolutePath());
+
+        // Tambahkan ekstensi .csv jika tidak ada
+        if (!fileToSave.getName().endsWith(".csv")) {
+            fileToSave = new File(fileToSave.getAbsolutePath() + ".csv");
+            System.out.println("Ekstensi .csv ditambahkan: " + fileToSave.getAbsolutePath());
+        }
+
+        try (PrintWriter writer = new PrintWriter(fileToSave)) {
+            javax.swing.table.TableModel model = jTable1.getModel();
+            int rowCount = model.getRowCount();
+            int colCount = model.getColumnCount();
+
+            System.out.println("Jumlah baris: " + rowCount + ", Jumlah kolom: " + colCount);
+
+            // Tulis header tabel
+            for (int col = 0; col < colCount; col++) {
+                writer.print(model.getColumnName(col)); // Menulis nama kolom
+                if (col < colCount - 1) {
+                    writer.print(","); // Tambahkan koma jika bukan kolom terakhir
+                }
+            }
+            writer.println(); // Pindah ke baris baru setelah header
+
+            // Tulis data tabel
+            for (int row = 0; row < rowCount; row++) {
+                for (int col = 0; col < colCount; col++) {
+                    Object value = model.getValueAt(row, col);
+                    writer.print(value != null ? value.toString() : ""); // Null-safe
+                    if (col < colCount - 1) {
+                        writer.print(","); // Tambahkan koma jika bukan kolom terakhir
+                    }
+                }
+                writer.println(); // Pindah ke baris baru setelah setiap baris data
+            }
+
+            System.out.println("Data tabel berhasil ditulis ke file CSV");
+            javax.swing.JOptionPane.showMessageDialog(
+                null,
+                "File CSV berhasil disimpan ke " + fileToSave.getAbsolutePath()
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(
+                null,
+                "Gagal menyimpan file CSV: " + e.getMessage()
+            );
+        }
+    } else {
+        System.out.println("User membatalkan penyimpanan");
+    }
+}
+
 
     private void txtJamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJamActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtJamActionPerformed
 
-    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSimpanActionPerformed
+    private void btnSimpanfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanfileActionPerformed
+     saveTableToCSV() ;   
+    }//GEN-LAST:event_btnSimpanfileActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
-        // TODO add your handling code here:
+         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    
+    // Mendapatkan indeks baris yang dipilih untuk dihapus
+    int selectedRowIndex = jTable1.getSelectedRow();
+    
+    // Mengecek apakah ada baris yang dipilih
+    if (selectedRowIndex != -1) {
+        // Konfirmasi penghapusan
+        int confirm = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus baris ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
+        
+        if (confirm == JOptionPane.YES_OPTION) {
+            // Menghapus baris yang dipilih
+            model.removeRow(selectedRowIndex);
+            JOptionPane.showMessageDialog(this, "Data berhasil dihapus.");
+        }
+    } else {
+        // Jika tidak ada baris yang dipilih
+        JOptionPane.showMessageDialog(this, "Pilih baris yang ingin dihapus.");
+    }
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void btnMasukDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasukDaftarActionPerformed
 
     // Ambil nilai dari inputan
-    String hari = txtHari.getText();
+    String hari = cmbHari.getSelectedItem().toString();
     java.util.Date tanggal = jDateChooser1.getDate();
     String pukul = txtJam.getText();
     String namaAgenda = jTextArea1.getText();
@@ -315,16 +427,138 @@ public class Agendaharian extends javax.swing.JFrame {
 
     // Tambahkan ke tabel
     javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
-    model.addRow(new Object[]{hari, tanggalFormatted, pukul, namaAgenda});
 
-    // Bersihkan input setelah menambah ke daftar
-    txtHari.setText("");
+    // Cek apakah ada baris dengan tanggal yang sama
+    boolean barisDitemukan = false;
+    for (int i = 0; i < model.getRowCount(); i++) {
+        if (model.getValueAt(i, 0).equals(tanggalFormatted) && model.getValueAt(i, 1).equals(pukul)) {
+            // Temukan kolom berdasarkan hari
+            int kolom = getHariKolom(hari);
+            if (kolom != -1) {
+                model.setValueAt(namaAgenda, i, kolom);
+            }
+            barisDitemukan = true;
+            break;
+        }
+    }
+
+    // Jika baris tidak ditemukan, tambahkan baris baru
+    if (!barisDitemukan) {
+        Object[] barisBaru = new Object[9];
+        barisBaru[0] = tanggalFormatted; // Tanggal
+        barisBaru[1] = pukul;           // Pukul
+        int kolom = getHariKolom(hari);
+        if (kolom != -1) {
+            barisBaru[kolom] = namaAgenda; // Nama agenda sesuai hari
+        }
+        model.addRow(barisBaru);
+    }
+
+    // membersihkan input setelah menambahkan ke daftar agenda
+    cmbHari.setSelectedIndex(0);
     jDateChooser1.setDate(null);
     txtJam.setText("");
     jTextArea1.setText("");
+}
+
+private int getHariKolom(String hari) {
+    // menyesauiakan ke kolom hari pada tabel sesaui pilihan cmbHari
+    switch (hari) {
+        case "Senin": return 2;
+        case "Selasa": return 3;
+        case "Rabu": return 4;
+        case "Kamis": return 5;
+        case "Jumat": return 6;
+        case "Sabtu": return 7;
+        case "Minggu": return 8;
+        default: return -1;
+    }
 
 
     }//GEN-LAST:event_btnMasukDaftarActionPerformed
+
+    private void btnSimpanDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanDatabaseActionPerformed
+
+    // Ambil model dari JTable
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+    // Pastikan JTable memiliki data untuk disimpan
+    if (model.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(this, "Tidak ada data untuk disimpan ke database.");
+        return;
+    }
+
+    // Loop melalui baris di JTable untuk menyimpan data ke database
+    try (Connection connection = koneksi.getConnection()) {
+        String query = "INSERT INTO agenda (tanggal, pukul, senin, selasa, rabu, kamis, jumat, sabtu, minggu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+        // Format tanggal dari JTable ke format MySQL (yyyy-MM-dd)
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd-MM-yyyy"); // Format asal (input dari JTable)
+        SimpleDateFormat mysqlDateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Format target (MySQL)
+
+        // Iterasi melalui baris-baris JTable
+        for (int i = 0; i < model.getRowCount(); i++) {
+            // Ambil dan format tanggal
+            String rawDate = model.getValueAt(i, 0).toString(); // Ambil tanggal dari JTable
+            String formattedDate = mysqlDateFormat.format(inputDateFormat.parse(rawDate)); // Format ke yyyy-MM-dd
+
+            preparedStatement.setString(1, formattedDate); // Tanggal (formatted)
+            preparedStatement.setString(2, model.getValueAt(i, 1).toString()); // Pukul
+            preparedStatement.setString(3, model.getValueAt(i, 2) != null ? model.getValueAt(i, 2).toString() : null); // Senin
+            preparedStatement.setString(4, model.getValueAt(i, 3) != null ? model.getValueAt(i, 3).toString() : null); // Selasa
+            preparedStatement.setString(5, model.getValueAt(i, 4) != null ? model.getValueAt(i, 4).toString() : null); // Rabu
+            preparedStatement.setString(6, model.getValueAt(i, 5) != null ? model.getValueAt(i, 5).toString() : null); // Kamis
+            preparedStatement.setString(7, model.getValueAt(i, 6) != null ? model.getValueAt(i, 6).toString() : null); // Jumat
+            preparedStatement.setString(8, model.getValueAt(i, 7) != null ? model.getValueAt(i, 7).toString() : null); // Sabtu
+            preparedStatement.setString(9, model.getValueAt(i, 8) != null ? model.getValueAt(i, 8).toString() : null); // Minggu
+
+            // Tambahkan ke batch untuk eksekusi
+            preparedStatement.addBatch();
+        }
+
+        // Eksekusi batch untuk menyimpan semua data
+        preparedStatement.executeBatch();
+
+        // Berikan notifikasi kepada pengguna
+        JOptionPane.showMessageDialog(this, "Data berhasil disimpan ke database!");
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Gagal menyimpan data ke database: " + e.getMessage());
+    }
+
+
+    }//GEN-LAST:event_btnSimpanDatabaseActionPerformed
+
+    private void btnMuatDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMuatDataActionPerformed
+
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    model.setRowCount(0); // Hapus data lama dari JTable
+
+    try (Connection connection = koneksi.getConnection()) {
+        String query = "SELECT * FROM agenda";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            model.addRow(new Object[]{
+                resultSet.getString("tanggal"),
+                resultSet.getString("pukul"),
+                resultSet.getString("senin"),
+                resultSet.getString("selasa"),
+                resultSet.getString("rabu"),
+                resultSet.getString("kamis"),
+                resultSet.getString("jumat"),
+                resultSet.getString("sabtu"),
+                resultSet.getString("minggu")
+            });
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Gagal memuat data: " + e.getMessage());
+    }
+
+    }//GEN-LAST:event_btnMuatDataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -362,11 +596,13 @@ public class Agendaharian extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuka;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnMasukDaftar;
-    private javax.swing.JButton btnSimpan;
+    private javax.swing.JButton btnMuatData;
+    private javax.swing.JButton btnSimpanDatabase;
+    private javax.swing.JButton btnSimpanfile;
     private javax.swing.JButton btnUbah;
+    private javax.swing.JComboBox<String> cmbHari;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -384,7 +620,6 @@ public class Agendaharian extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField txtCari;
-    private javax.swing.JTextField txtHari;
     private javax.swing.JTextField txtJam;
     // End of variables declaration//GEN-END:variables
 }
