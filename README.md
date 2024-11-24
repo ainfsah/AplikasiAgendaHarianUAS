@@ -110,11 +110,7 @@ Aplikasi **Agenda Harian UAS** adalah aplikasi desktop berbasis Java Swing yang 
 
 ---
 ### DEMO
-
-
-
-
-
+![Demo Aplikasi](img/UTS.gif)
 
 ---
 ## Catatan
