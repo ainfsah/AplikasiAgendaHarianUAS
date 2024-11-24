@@ -68,7 +68,7 @@ Aplikasi **Agenda Harian** adalah aplikasi desktop berbasis Java Swing yang memb
 ### 6. Muat Data
 - Klik tombol **Muat Data** untuk memuat data dari database ke tabel.
 
-### 7. Ekspor ke CSV
+### 7. simpan ke CSV
 - Klik tombol **Simpan ke File** untuk mengekspor data tabel ke file CSV.
 
 ### 8. Impor dari CSV
